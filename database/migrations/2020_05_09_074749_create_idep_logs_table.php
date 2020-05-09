@@ -20,6 +20,8 @@ class CreateIdepLogsTable extends Migration
             $table->dateTime('transaction_at', 2);
             $table->bigInteger('value');
             $table->text('description')->nullable();
+            $table->dateTime('withdrawn_at', 2)->nullable();
+            $table->unsignedBigInteger('withdrawal_id')->index()->nullable();
             $table->timestamps();
 
             $table->foreign('employee_id')

@@ -14,5 +14,7 @@ class IdepLog extends Model
 		'transaction_at',
 		'value',
 		'description',
+		'withdrawn_at',
+		'withdrawal_id',
     ];
 }
