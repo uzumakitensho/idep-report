@@ -37,7 +37,10 @@
                         @guest
                         @else
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url('idep-report/list') }}">Report</a>
+                                <a class="nav-link" href="{{ url('idep-report/list') }}">Laporan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('employee/list') }}">Karyawan</a>
                             </li>
                         @endguest
                     </ul>

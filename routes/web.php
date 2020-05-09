@@ -28,3 +28,7 @@ Route::prefix('idep-report')->group(function() {
     Route::get('/data-employee', 'IdepReportController@getDataEmployeeList');
     Route::post('/data-log', 'IdepReportController@getDataIdepLog');
 });
+
+Route::prefix('employee')->group(function() {
+    Route::get('/list', 'EmployeeController@showListEmployee');
+});

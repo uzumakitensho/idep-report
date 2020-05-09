@@ -11,4 +11,9 @@ class Employee extends Model
     protected $fillable = [
         'full_name',
     ];
+
+    public function getTotalAllQuantityAttribute()
+    {
+    	return $total = IdepLog::where('employee_id', $this->id)->sum('value');
+    }
 }
