@@ -105,7 +105,10 @@ $(document).ready(function(){
 
 				$("#idepReportTable").html(rendered);
 
-				$("#idepReportTable").DataTable();
+				var idepReportTable = $("#idepReportTable").DataTable();
+				idepReportTable.destroy();
+
+				var idepReportTable = $("#idepReportTable").DataTable();
 
 			})
 			.catch(function(err){
