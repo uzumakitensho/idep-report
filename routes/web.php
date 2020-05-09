@@ -23,4 +23,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('idep-report')->group(function() {
     Route::get('/list', 'IdepReportController@showListIdepReport');
+
+    Route::get('/data-employee', 'IdepReportController@getDataEmployeeList');
 });

@@ -46,18 +46,3 @@
 	</div>
 </div>
 @endsection
-
-@section('content-js')
-<script>
-$('.input-date-month').datepicker({
-	format: "yyyy-mm",
-	autoclose: true,
-	todayHighlight: true,
-	todayBtn: "linked",
-	minViewMode: 1,
-	endDate: "0d",
-});
-
-$('.input-autocomplete').autoComplete();
-</script>
-@endsection
