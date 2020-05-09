@@ -1,0 +1,23 @@
+<div class="col-md-12" style="margin-bottom: 20px;">
+	<div class="card">
+		<div class="card-header">Tambah Data</div>
+
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-8">
+					<form>
+						<div class="form-group">
+							<label for="tanggal">Tahun - Bulan</label>
+							<input type="text" class="form-control form-control-sm input-date-month" id="tanggal" readonly value="{{ \Carbon\Carbon::now()->format('Y-m') }}">
+						</div>
+						<div class="form-group">
+							<label for="nama_lengkap">Nama Lengkap</label>
+							<input type="text" class="form-control form-control-sm input-autocomplete" id="nama_lengkap">
+						</div>
+						<button type="button" class="btn btn-secondary btn-sm">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
