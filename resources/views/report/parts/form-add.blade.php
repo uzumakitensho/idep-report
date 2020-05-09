@@ -7,8 +7,8 @@
 				<div class="col-md-8">
 					<form>
 						<div class="form-group">
-							<label for="tanggal">Tahun - Bulan</label>
-							<input type="text" class="form-control form-control-sm input-date-month" id="tanggal" readonly value="{{ \Carbon\Carbon::now()->format('Y-m') }}">
+							<label for="tanggal">Tahun - Bulan - Tanggal</label>
+							<input type="text" class="form-control form-control-sm input-date-month" id="tanggal" readonly value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
 						</div>
 
 						<div class="form-group">

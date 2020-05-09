@@ -24,7 +24,7 @@ class IdepReportController extends Controller
 
 	public function postCreateForm(CreateIdepLogRequest $request)
 	{
-		$transaction_at = Carbon::createFromFormat('Y-m', $request->transaction_at)->endOfMonth();
+		$transaction_at = Carbon::createFromFormat('Y-m-d', $request->transaction_at);
 		$full_name = trim(strip_tags($request->full_name));
 		$quantity = intval($request->quantity);
 		$description = trim(strip_tags($request->description));

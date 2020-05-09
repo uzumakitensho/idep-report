@@ -1,9 +1,9 @@
 $('.input-date-month').datepicker({
-	format: "yyyy-mm",
+	format: "yyyy-mm-dd",
 	autoclose: true,
 	todayHighlight: true,
 	todayBtn: "linked",
-	minViewMode: 1,
+	minViewMode: 0,
 	endDate: "0d",
 });
 

@@ -16,7 +16,7 @@ class CreateIdepLogRequest extends FormRequest
     public function rules()
     {
         return [
-            'transaction_at' => 'required|date_format:"Y-m"',
+            'transaction_at' => 'required|date_format:"Y-m-d"',
             'full_name' => 'required',
             'quantity' => 'required|integer|min:1',
             'description' => 'nullable',
