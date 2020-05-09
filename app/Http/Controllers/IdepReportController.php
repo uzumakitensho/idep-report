@@ -80,4 +80,22 @@ class IdepReportController extends Controller
 
 		return response()->json($employees);
 	}
+
+	public function getDataIdepLog(Request $request)
+	{
+		$logs = IdepLog::join('employees', 'employees.id', '=', 'idep_logs.employee_id')
+			->select(
+				DB::raw("FORMAT(sum(idep_logs.value), 0, 'id_ID') as quantity_total, employees.full_name")
+			)
+			->groupBy('idep_logs.employee_id')
+			->orderBy('employees.full_name')
+			->get();
+
+		return response()->json([
+			'success' => true,
+			'result' => [
+				'logs' => $logs,
+			],
+		]);
+	}
 }

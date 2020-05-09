@@ -13,31 +13,7 @@
 					<div class="row">
 						<div class="col-md-8">
 							<h3>Daftar</h3>
-							<table class="table table-sm table-bordered">
-								<thead>
-									<tr>
-										<th>Nama</th>
-										<th>Total</th>
-										<th width="3%">Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>aasas</td>
-										<td>0</td>
-										<td>
-											<div class="dropdown">
-												<button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													Dropdown button
-												</button>
-												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-													<a class="dropdown-item" href="#">Detail</a>
-												</div>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
+							<table class="table table-sm table-bordered" id="idepReportTable"></table>
 						</div>
 					</div>
 				</div>
@@ -45,4 +21,17 @@
 		</div>
 	</div>
 </div>
+@endsection
+
+@section('content-js')
+<script>
+window.Laravel.idepReport = {!! json_encode([
+	'createLogURL' => url('idep-report/create-log'),
+	'listLogURL' => url('idep-report/data-log'),
+]) !!};
+</script>
+
+@include('report.parts.mustache')
+
+<script src="{{ asset('js/idep-report.js') .'?'. time() }}"></script>
 @endsection

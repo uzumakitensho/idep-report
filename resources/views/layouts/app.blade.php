@@ -16,6 +16,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
     @yield('content-css')
 </head>
@@ -83,8 +84,13 @@
     <script src="{{ asset('js/bootstrap-autocomplete.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-notify.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/mustache.min.js') }}"></script>
 
     <script>
+        Mustache.tags = ['{%', '%}'];
+        
         function showNotification(notifType, notifMsg, notifTitle){
             notifTitle = typeof notifTitle == 'string' ? notifTitle : 'Pemberitahuan';
             notifType = ['success','danger','warning'].indexOf(notifType) !== -1 ? notifType : 'primary';
@@ -97,6 +103,10 @@
                 type: notifType
             });
         }
+
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+        ]) !!};
     </script>
 
     @yield('content-js')
