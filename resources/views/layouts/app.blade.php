@@ -78,11 +78,26 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery-masknumber.js') }}"></script>
     <script src="{{ asset('js/bootstrap-autocomplete.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-notify.min.js') }}"></script>
+
+    <script>
+        function showNotification(notifType, notifMsg, notifTitle){
+            notifTitle = typeof notifTitle == 'string' ? notifTitle : 'Pemberitahuan';
+            notifType = ['success','danger','warning'].indexOf(notifType) !== -1 ? notifType : 'primary';
+            notifMsg = typeof notifMsg == 'string' ? notifMsg : '';
+
+            $.notify({
+                title: `<strong>${notifTitle}!</strong>`,
+                message: notifMsg
+            },{
+                type: notifType
+            });
+        }
+    </script>
 
     @yield('content-js')
 </body>
