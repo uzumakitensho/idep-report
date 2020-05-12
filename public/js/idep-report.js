@@ -101,21 +101,33 @@ $(document).ready(function(){
 				var dataRender = {
 					idepLogs: resp.data.result.logs
 				};
+				parseMustacheTemplate(dataRender, 'idepReportListTmplt', 'idepReportTable');
 
-				var mustacheTmpl = $('#idepReportListTmplt').html();
-				Mustache.parse(mustacheTmpl);
-				var rendered = Mustache.render(mustacheTmpl, dataRender);
-
-				$("#idepReportTable").html(rendered);
-
-				var idepReportTable = $("#idepReportTable").DataTable();
-				idepReportTable.destroy();
-
-				var idepReportTable = $("#idepReportTable").DataTable();
+				var dataRender = {
+					idepLogs: resp.data.result.logsByDate
+				}
+				parseMustacheTemplate(dataRender, 'idepReportListByDateTmplt', 'idepReportByDateTable');
 
 			})
 			.catch(function(err){
 				showNotification('danger', 'Data gagal dimuat.', 'Ada error');
 			});
+	}
+
+	function parseMustacheTemplate(dataRender, templateId, renderPlaceId){
+		if(typeof dataRender !== 'object') dataRender = {};
+
+		var mustacheTmpl = $(`#${templateId}`).html();
+		Mustache.parse(mustacheTmpl);
+		var rendered = Mustache.render(mustacheTmpl, dataRender);
+
+		var renderPlace = $(`#${renderPlaceId}`);
+
+		renderPlace.html(rendered);
+
+		var idepReportTable = renderPlace.DataTable();
+		idepReportTable.destroy();
+
+		var idepReportTable = renderPlace.DataTable();
 	}
 });

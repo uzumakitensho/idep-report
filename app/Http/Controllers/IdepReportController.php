@@ -131,10 +131,19 @@ class IdepReportController extends Controller
 			->orderBy('employees.full_name')
 			->get();
 
+		$logsByDate = IdepLog::orderBy(DB::raw("DATE_FORMAT(idep_logs.transaction_at, '%d %M %Y')"))
+			->select(
+				DB::raw("FORMAT(sum(idep_logs.value), 0, 'id_ID') as quantity_total"),
+				DB::raw("DATE_FORMAT(idep_logs.transaction_at, '%d %M %Y') as transaction_date")
+			)
+			->groupBy(DB::raw("DATE_FORMAT(idep_logs.transaction_at, '%d %M %Y')"))
+			->get();
+
 		return response()->json([
 			'success' => true,
 			'result' => [
 				'logs' => $logs,
+				'logsByDate' => $logsByDate,
 			],
 		]);
 	}

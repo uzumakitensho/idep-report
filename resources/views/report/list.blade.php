@@ -10,10 +10,17 @@
 				<div class="card-header">Daftar</div>
 
 				<div class="card-body">
-					<div class="row">
+					<div class="row" style="margin-bottom: 20px;">
 						<div class="col-md-8">
-							<h3>Daftar</h3>
+							<h3>Daftar by Karyawan</h3>
 							<table class="table table-sm table-bordered" id="idepReportTable"></table>
+						</div>
+					</div>
+
+					<div class="row" style="margin-bottom: 20px;">
+						<div class="col-md-8">
+							<h3>Daftar by Tanggal</h3>
+							<table class="table table-sm table-bordered" id="idepReportByDateTable"></table>
 						</div>
 					</div>
 				</div>
