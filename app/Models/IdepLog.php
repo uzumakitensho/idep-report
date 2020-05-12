@@ -10,6 +10,7 @@ class IdepLog extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'uuid_idep_log',
+		'idep_type_id',
 		'employee_id',
 		'transaction_at',
 		'value',

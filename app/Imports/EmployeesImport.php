@@ -15,6 +15,7 @@ class EmployeesImport implements ToModel
     public function model(array $row)
     {
         $fullName = $row[0];
+        if(empty($fullName)) return null;
 
         $employeeDetail = Employee::where('full_name', $fullName)
             ->first();
