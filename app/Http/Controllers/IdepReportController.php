@@ -123,6 +123,14 @@ class IdepReportController extends Controller
 
 	public function getDataIdepLog(Request $request)
 	{
+		$selectedDateFilter = null;
+		if(!empty($request->selected_date)){
+			$selDateStart = Carbon::createFromFormat('Y-m-d', $request->selected_date)->startOfDay();
+			$selDateEnd = Carbon::createFromFormat('Y-m-d', $request->selected_date)->endOfDay();
+
+			$selectedDateFilter = [$selDateStart, $selDateEnd];
+		}
+
 		$logs = IdepLog::join('employees', 'employees.id', '=', 'idep_logs.employee_id')
 			->select(
 				DB::raw("FORMAT(sum(idep_logs.value), 0, 'id_ID') as quantity_total, employees.full_name")
@@ -131,12 +139,25 @@ class IdepReportController extends Controller
 			->orderBy('employees.full_name')
 			->get();
 
-		$logsByDate = IdepLog::orderBy(DB::raw("DATE_FORMAT(idep_logs.transaction_at, '%d %M %Y')"))
+		$logsByDate = IdepLog::orderBy(DB::raw("DATE_FORMAT(idep_logs.transaction_at, '%Y-%m-%d')"))
 			->select(
 				DB::raw("FORMAT(sum(idep_logs.value), 0, 'id_ID') as quantity_total"),
-				DB::raw("DATE_FORMAT(idep_logs.transaction_at, '%d %M %Y') as transaction_date")
+				DB::raw("DATE_FORMAT(idep_logs.transaction_at, '%Y-%m-%d') as transaction_date")
 			)
-			->groupBy(DB::raw("DATE_FORMAT(idep_logs.transaction_at, '%d %M %Y')"))
+			->groupBy(DB::raw("DATE_FORMAT(idep_logs.transaction_at, '%Y-%m-%d')"))
+			->get();
+
+		$logsBySelectedDate = IdepLog::join('idep_types', 'idep_types.id', '=', 'idep_logs.idep_type_id')
+			->select(
+				DB::raw("FORMAT(sum(idep_logs.value), 0, 'id_ID') as quantity_total, idep_types.type_name")
+			)
+			->groupBy('idep_logs.idep_type_id');
+
+		if($selectedDateFilter){
+			$logsBySelectedDate = $logsBySelectedDate->whereBetween('idep_logs.transaction_at', $selectedDateFilter);
+		}
+
+		$logsBySelectedDate = $logsBySelectedDate->orderBy('idep_types.type_name')
 			->get();
 
 		return response()->json([
@@ -144,6 +165,7 @@ class IdepReportController extends Controller
 			'result' => [
 				'logs' => $logs,
 				'logsByDate' => $logsByDate,
+				'logsBySelectedDate' => $logsBySelectedDate,
 			],
 		]);
 	}

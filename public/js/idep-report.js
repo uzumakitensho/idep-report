@@ -29,6 +29,11 @@ $(document).ready(function(){
 
 	namaLengkapInput.focus();
 	btnSubmit.off('click', btnSubmitHandler).on('click', btnSubmitHandler);
+	tanggalInput.off('change', tanggalInputHandler).on('change', tanggalInputHandler);
+
+	function tanggalInputHandler(event){
+		renderReportTable();
+	}
 
 	function btnSubmitHandler(event){
 		disableBtn();
@@ -96,7 +101,8 @@ $(document).ready(function(){
 
 	renderReportTable();
 	function renderReportTable(){
-		axios.post(window.Laravel.idepReport.listLogURL, {})
+		var selectedDate = tanggalInput.val();
+		axios.post(window.Laravel.idepReport.listLogURL, {selected_date: selectedDate})
 			.then(function(resp){
 				var dataRender = {
 					idepLogs: resp.data.result.logs
@@ -107,6 +113,11 @@ $(document).ready(function(){
 					idepLogs: resp.data.result.logsByDate
 				}
 				parseMustacheTemplate(dataRender, 'idepReportListByDateTmplt', 'idepReportByDateTable');
+
+				var dataRender = {
+					idepLogs: resp.data.result.logsBySelectedDate
+				}
+				parseMustacheTemplate(dataRender, 'detailSelectedTmplt', 'detailSelectedTable');
 
 			})
 			.catch(function(err){

@@ -10,7 +10,7 @@
 				<div class="card-header">Daftar</div>
 
 				<div class="card-body">
-					<div class="row" style="margin-bottom: 20px;">
+					<div class="row" style="margin-bottom: 20px; display: none;">
 						<div class="col-md-8">
 							<h3>Daftar by Karyawan</h3>
 							<table class="table table-sm table-bordered" id="idepReportTable"></table>
