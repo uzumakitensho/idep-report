@@ -21,6 +21,7 @@ $('.input-number-format').maskNumber({
 $(document).ready(function(){
 
 	var tanggalInput = $('#tanggal');
+	var tipeIdepInput = $('#tipe_idep');
 	var namaLengkapInput = $('#nama_lengkap');
 	var quantityInput = $('#quantity');
 	var catatanInput = $('#catatan');
@@ -33,6 +34,7 @@ $(document).ready(function(){
 		disableBtn();
 
 		var tanggal = tanggalInput.val();
+		var tipeIdep = tipeIdepInput.val();
 		var namaLengkap = namaLengkapInput.val();
 		var quantity = parseInt(quantityInput.val().split('.').join(''));
 		var catatan = catatanInput.val();
@@ -57,6 +59,7 @@ $(document).ready(function(){
 
 		var data = {
 			transaction_at: tanggal,
+			idep_type: tipeIdep,
 			full_name: namaLengkap,
 			quantity: quantity,
 			description: catatan,

@@ -26,6 +26,7 @@ Route::prefix('idep-report')->group(function() {
     Route::post('/create-log', 'IdepReportController@postCreateForm');
 
     Route::get('/data-employee', 'IdepReportController@getDataEmployeeList');
+    Route::get('/data-type', 'IdepReportController@getDataIdepTypeList');
     Route::post('/data-log', 'IdepReportController@getDataIdepLog');
 });
 

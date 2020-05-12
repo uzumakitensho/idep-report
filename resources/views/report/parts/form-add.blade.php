@@ -12,6 +12,11 @@
 						</div>
 
 						<div class="form-group">
+							<label for="tipe_idep">Tipe</label>
+							<input type="text" class="form-control form-control-sm input-autocomplete" id="tipe_idep" data-url="{{ url('idep-report/data-type') }}" autocomplete="off">
+						</div>
+
+						<div class="form-group">
 							<label for="nama_lengkap">Nama Lengkap</label>
 							<input type="text" class="form-control form-control-sm input-autocomplete" id="nama_lengkap" data-url="{{ url('idep-report/data-employee') }}" autocomplete="off">
 						</div>
