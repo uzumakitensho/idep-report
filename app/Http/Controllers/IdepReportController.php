@@ -49,14 +49,14 @@ class IdepReportController extends Controller
 			}
 		}
 
-		$newIdepLog = IdepLog::create([
+		$detailIdepLog = IdepLog::create([
 			'uuid_idep_log' => self::generateUUID(),
 			'employee_id' => $employeeDetail->id,
 			'transaction_at' => $transaction_at,
 			'value' => $quantity,
 			'description' => $description,
 		]);
-		if(!$newIdepLog){
+		if(!$detailIdepLog){
 			DB::rollBack();
 			return response()->json([
 				'success' => false,
@@ -79,8 +79,8 @@ class IdepReportController extends Controller
 				}
 			}
 
-			$newIdepLog->idep_type_id = $detailType->id;
-			if(!$newIdepLog->save()){
+			$detailIdepLog->idep_type_id = $detailType->id;
+			if(!$detailIdepLog->save()){
 				DB::rollBack();
 				return response()->json([
 					'success' => false,
@@ -106,6 +106,15 @@ class IdepReportController extends Controller
 
 		DB::beginTransaction();
 
+		$detailIdepLog = IdepLog::where('uuid_idep_log', $uuid)->first();
+		if(empty($detailIdepLog)){
+			DB::rollBack();
+			return response()->json([
+				'success' => false,
+				'messages' => ['Data tidak ditemukan!'],
+			], 422);
+		}
+
 		$employeeDetail = Employee::where('full_name', $full_name)
 			->first();
 		if(empty($employeeDetail)){
@@ -121,20 +130,10 @@ class IdepReportController extends Controller
 			}
 		}
 
-		$newIdepLog = IdepLog::create([
-			'uuid_idep_log' => self::generateUUID(),
-			'employee_id' => $employeeDetail->id,
-			'transaction_at' => $transaction_at,
-			'value' => $quantity,
-			'description' => $description,
-		]);
-		if(!$newIdepLog){
-			DB::rollBack();
-			return response()->json([
-				'success' => false,
-				'messages' => ['Gagal membuat data!'],
-			], 422);
-		}
+		$detailIdepLog->employee_id = $employeeDetail->id;
+		$detailIdepLog->transaction_at = $transaction_at;
+		$detailIdepLog->value = $quantity;
+		$detailIdepLog->description = $description;
 
 		if(!empty($idep_type)){
 			$detailType = IdepType::where('type_name', $idep_type)->first();
@@ -151,14 +150,15 @@ class IdepReportController extends Controller
 				}
 			}
 
-			$newIdepLog->idep_type_id = $detailType->id;
-			if(!$newIdepLog->save()){
-				DB::rollBack();
-				return response()->json([
-					'success' => false,
-					'messages' => ['Gagal membuat data!'],
-				], 422);
-			}
+			$detailIdepLog->idep_type_id = $detailType->id;
+		}
+
+		if(!$detailIdepLog->save()){
+			DB::rollBack();
+			return response()->json([
+				'success' => false,
+				'messages' => ['Gagal membuat data!'],
+			], 422);
 		}
 
 		DB::commit();

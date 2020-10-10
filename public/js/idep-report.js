@@ -28,15 +28,15 @@ $(document).ready(function(){
 	var btnSubmit = $('#btnSubmit');
 
 	namaLengkapInput.focus();
-	btnSubmit.off('click', btnSubmitHandler).on('click', btnSubmitHandler);
-	tanggalInput.off('change', tanggalInputHandler).on('change', tanggalInputHandler);
 
+	tanggalInput.off('change', tanggalInputHandler).on('change', tanggalInputHandler);
 	function tanggalInputHandler(event){
 		renderReportTable();
 	}
 
+	btnSubmit.off('click', btnSubmitHandler).on('click', btnSubmitHandler);
 	function btnSubmitHandler(event){
-		disableBtn();
+		disableAddBtn();
 
 		var tanggal = tanggalInput.val();
 		var tipeIdep = tipeIdepInput.val();
@@ -46,19 +46,19 @@ $(document).ready(function(){
 
 		if(!tanggal){
 			alert('Pilih tanggal dulu!');
-			enableBtn();
+			enableAddBtn();
 			return;
 		}
 
 		if(!namaLengkap){
 			alert('Isi nama lengkap dulu!');
-			enableBtn();
+			enableAddBtn();
 			return;
 		}
 
 		if(isNaN(quantity) || quantity < 1){
 			alert('Isi jumlah dulu! (Harus lebih dari nol)');
-			enableBtn();
+			enableAddBtn();
 			return;
 		}
 
@@ -72,30 +72,30 @@ $(document).ready(function(){
 
 		axios.post(window.Laravel.idepReport.createLogURL, data)
 			.then(function(resp){
-				resetForm();
-				enableBtn();
+				resetCreateForm();
+				enableAddBtn();
 				showNotification('success', 'Data berhasil dibuat.', 'Sukses');
 				namaLengkapInput.focus();
 				renderReportTable();
 			})
 			.catch(function(err){
-				enableBtn();
+				enableAddBtn();
 				showNotification('danger', 'Data gagal dibuat.', 'Ada error');
 				namaLengkapInput.focus();
 			});
 	}
 
-	function resetForm(){
+	function resetCreateForm(){
 		namaLengkapInput.val('');
 		quantityInput.val('');
 		catatanInput.val('');
 	}
 
-	function enableBtn(){
+	function enableAddBtn(){
 		btnSubmit.removeAttr('disabled');
 	}
 
-	function disableBtn(){
+	function disableAddBtn(){
 		btnSubmit.attr({disabled: true});
 	}
 
@@ -174,6 +174,8 @@ $(document).ready(function(){
 		$('#quantity_edit').val(quantity);
 		$('#catatan_edit').val(description);
 
+		$('#quantity_edit').focus();
+
 		$('html, body').animate({
 			scrollTop: $("#formEditData").offset().top
 		}, 500);
@@ -184,15 +186,87 @@ $(document).ready(function(){
 		$('#formAddData').removeClass('hidden');
 		$('#formEditData').addClass('hidden');
 
+		resetEditForm();
+
+		$('html, body').animate({
+			scrollTop: $("#formAddData").offset().top
+		}, 500);
+	}
+
+	$('#btnSubmitEdit').off('click', btnSubmitEditHandler).on('click', btnSubmitEditHandler);
+	async function btnSubmitEditHandler(event){
+		disableEditBtn();
+
+		var uuid = $('#uuid_edit').val();
+		var tanggal = $('#tanggal_edit').val();
+		var tipeIdep = $('#tipe_idep_edit').val();
+		var namaLengkap = $('#nama_lengkap_edit').val();
+		var quantity = parseInt($('#quantity_edit').val().split('.').join(''));
+		var catatan = $('#catatan_edit').val();
+
+		if(!tanggal){
+			alert('Pilih tanggal dulu!');
+			enableAddBtn();
+			return;
+		}
+
+		if(!namaLengkap){
+			alert('Isi nama lengkap dulu!');
+			enableAddBtn();
+			return;
+		}
+
+		if(isNaN(quantity) || quantity < 1){
+			alert('Isi jumlah dulu! (Harus lebih dari nol)');
+			enableAddBtn();
+			return;
+		}
+
+		var data = {
+			transaction_at: tanggal,
+			idep_type: tipeIdep,
+			full_name: namaLengkap,
+			quantity: quantity,
+			description: catatan,
+		};
+
+		var editUrl = window.Laravel.idepReport.editLogURL +'/'+ uuid;
+		await axios.post(editUrl, data)
+			.then(function(resp){
+				resetEditForm();
+				enableEditBtn();
+				showNotification('success', 'Data berhasil diperbaharui.', 'Sukses');
+				renderReportTable();
+
+				$('#formAddData').removeClass('hidden');
+				$('#formEditData').addClass('hidden');
+				namaLengkapInput.focus();
+
+				$('html, body').animate({
+					scrollTop: $("#formAddData").offset().top
+				}, 500);
+			})
+			.catch(function(err){
+				enableEditBtn();
+				showNotification('danger', 'Data gagal diperbaharui.', 'Ada error');
+				namaLengkapInput.focus();
+			});
+	}
+
+	function resetEditForm(){
 		$('#uuid_edit').val('');
 		$('#tanggal_edit').val('');
 		$('#tipe_idep_edit').val('');
 		$('#nama_lengkap_edit').val('');
 		$('#quantity_edit').val('');
 		$('#catatan_edit').val('');
+	}
 
-		$('html, body').animate({
-			scrollTop: $("#formAddData").offset().top
-		}, 500);
+	function enableEditBtn(){
+		$('#btnSubmitEdit').removeAttr('disabled');
+	}
+
+	function disableEditBtn(){
+		$('#btnSubmitEdit').attr({disabled: true});
 	}
 });

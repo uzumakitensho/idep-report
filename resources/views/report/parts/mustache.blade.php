@@ -5,7 +5,6 @@
 		<th>Jenis</th>
 		<th>Nama</th>
 		<th>Jumlah</th>
-		<th>Description</th>
 		<th width="3%">Action</th>
 	</tr>
 </thead>
@@ -16,7 +15,6 @@
 		<td>{% type_name %}</td>
 		<td>{% full_name %}</td>
 		<td>{% quantity %}</td>
-		<td>{% description %}</td>
 		<td>
 			<a  
 				class="btn btn-sm btn-warning btn-edit-log"
