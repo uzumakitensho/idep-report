@@ -1,3 +1,28 @@
+<script id="idepReportLogInputDate" type="x-tmpl-mustache">
+<thead>
+	<tr>
+		<th>Created At</th>
+		<th>Jenis</th>
+		<th>Nama</th>
+		<th>Jumlah</th>
+		<th width="3%">Action</th>
+	</tr>
+</thead>
+<tbody>
+	{% #idepLogs %}
+	<tr>
+		<td>{% created_date %}</td>
+		<td>{% type_name %}</td>
+		<td>{% full_name %}</td>
+		<td>{% quantity %}</td>
+		<td>
+			<a href="#" class="btn btn-sm btn-primary">Detail</a>
+		</td>
+	</tr>
+	{% /idepLogs %}
+</tbody>
+</script>
+
 <script id="idepReportListTmplt" type="x-tmpl-mustache">
 <thead>
 	<tr>

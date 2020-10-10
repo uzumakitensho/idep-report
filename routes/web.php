@@ -34,3 +34,7 @@ Route::prefix('employee')->group(function() {
     Route::get('/list', 'EmployeeController@showListEmployee');
     Route::post('/import', 'EmployeeController@importListEmployee');
 });
+
+Route::prefix('periode')->group(function() {
+    Route::get('/list', 'PeriodeController@showListPeriode');
+});

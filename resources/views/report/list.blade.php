@@ -10,6 +10,13 @@
 				<div class="card-header">Daftar</div>
 
 				<div class="card-body">
+					<div class="row" style="margin-bottom: 20px;">
+						<div class="col-md-8">
+							<h3>Log Input</h3>
+							<table class="table table-sm table-bordered" id="idepReportLogInputTable"></table>
+						</div>
+					</div>
+
 					<div class="row" style="margin-bottom: 20px; display: none;">
 						<div class="col-md-8">
 							<h3>Daftar by Karyawan</h3>
@@ -17,7 +24,7 @@
 						</div>
 					</div>
 
-					<div class="row" style="margin-bottom: 20px;">
+					<div class="row" style="margin-bottom: 20px; display: none;">
 						<div class="col-md-8">
 							<h3>Daftar by Tanggal</h3>
 							<table class="table table-sm table-bordered" id="idepReportByDateTable"></table>

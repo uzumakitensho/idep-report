@@ -42,6 +42,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ url('employee/list') }}">Karyawan</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url('periode/list') }}">Periode</a>
+                            </li>
                         @endguest
                     </ul>
 

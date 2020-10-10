@@ -160,12 +160,30 @@ class IdepReportController extends Controller
 		$logsBySelectedDate = $logsBySelectedDate->orderBy('idep_types.type_name')
 			->get();
 
+		$inputLogsByDate = IdepLog::leftJoin('idep_types', 'idep_types.id', '=', 'idep_logs.idep_type_id')
+			->leftJoin('employees', 'employees.id', '=', 'idep_logs.employee_id')
+			->select(
+				'idep_logs.uuid_idep_log',
+				'employees.full_name',
+				'idep_types.type_name',
+				DB::raw("FORMAT(idep_logs.value, 0, 'id_ID') as quantity"),
+				DB::raw('DATE_FORMAT(idep_logs.created_at, "%Y-%m-%d %H:%i:%s") as created_date')
+			);
+
+		if($selectedDateFilter){
+			$inputLogsByDate = $inputLogsByDate->whereBetween('idep_logs.transaction_at', $selectedDateFilter);
+		}
+
+		$inputLogsByDate = $inputLogsByDate->orderBy('idep_types.type_name')
+			->get();
+
 		return response()->json([
 			'success' => true,
 			'result' => [
 				'logs' => $logs,
 				'logsByDate' => $logsByDate,
 				'logsBySelectedDate' => $logsBySelectedDate,
+				'inputLogsDate' => $inputLogsByDate,
 			],
 		]);
 	}

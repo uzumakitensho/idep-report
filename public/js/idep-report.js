@@ -100,9 +100,9 @@ $(document).ready(function(){
 	}
 
 	renderReportTable();
-	function renderReportTable(){
+	async function renderReportTable(){
 		var selectedDate = tanggalInput.val();
-		axios.post(window.Laravel.idepReport.listLogURL, {selected_date: selectedDate})
+		await axios.post(window.Laravel.idepReport.listLogURL, {selected_date: selectedDate})
 			.then(function(resp){
 				var dataRender = {
 					idepLogs: resp.data.result.logs
@@ -118,6 +118,11 @@ $(document).ready(function(){
 					idepLogs: resp.data.result.logsBySelectedDate
 				}
 				parseMustacheTemplate(dataRender, 'detailSelectedTmplt', 'detailSelectedTable');
+
+				var dataRender = {
+					idepLogs: resp.data.result.inputLogsDate
+				}
+				parseMustacheTemplate(dataRender, 'idepReportLogInputDate', 'idepReportLogInputTable');
 
 			})
 			.catch(function(err){
