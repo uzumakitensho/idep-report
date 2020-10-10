@@ -168,6 +168,30 @@ class IdepReportController extends Controller
 		], 200);
 	}
 
+	public function postDeleteForm(Request $request, $uuid)
+	{
+		$detailIdepLog = IdepLog::where('uuid_idep_log', $uuid)->first();
+		if(empty($detailIdepLog)){
+			DB::rollBack();
+			return response()->json([
+				'success' => false,
+				'messages' => ['Data tidak ditemukan!'],
+			], 422);
+		}
+
+		if(!$detailIdepLog->delete()){
+			DB::rollBack();
+			return response()->json([
+				'success' => false,
+				'messages' => ['Gagal menghapus data!'],
+			], 422);
+		}
+
+		return response()->json([
+			'success' => true,
+		], 200);
+	}
+
 	public function getDataEmployeeList(Request $request)
 	{
 		$query = trim(strip_tags($request->q));

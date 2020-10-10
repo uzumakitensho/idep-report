@@ -5,7 +5,7 @@
 		<th>Jenis</th>
 		<th>Nama</th>
 		<th>Jumlah</th>
-		<th width="3%">Action</th>
+		<th>Action</th>
 	</tr>
 </thead>
 <tbody>
@@ -24,7 +24,12 @@
 				data-fullname="{% full_name %}" 
 				data-quantity="{% value %}" 
 				data-description="{% description %}" 
-			>Edit</a>
+			>Ubah</a>
+
+			<a  
+				class="btn btn-sm btn-danger btn-del-log"
+				data-uuid="{% uuid_idep_log %}" 
+			>Hapus</a>
 		</td>
 	</tr>
 	{% /idepLogs %}

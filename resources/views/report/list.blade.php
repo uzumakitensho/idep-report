@@ -43,6 +43,7 @@
 window.Laravel.idepReport = {!! json_encode([
 	'createLogURL' => url('idep-report/create-log'),
 	'editLogURL' => url('idep-report/edit-log'),
+	'deleteLogURL' => url('idep-report/delete-log'),
 	'listLogURL' => url('idep-report/data-log'),
 ]) !!};
 </script>

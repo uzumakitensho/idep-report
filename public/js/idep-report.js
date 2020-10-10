@@ -151,6 +151,7 @@ $(document).ready(function(){
 
 	function rebind(){
 		$('.btn-edit-log').off('click', btnEditLogHandler).on('click', btnEditLogHandler);
+		$('.btn-del-log').off('click', btnDeleteLogHandler).on('click', btnDeleteLogHandler);
 	}
 
 	$('#formAddData').removeClass('hidden');
@@ -195,6 +196,9 @@ $(document).ready(function(){
 
 	$('#btnSubmitEdit').off('click', btnSubmitEditHandler).on('click', btnSubmitEditHandler);
 	async function btnSubmitEditHandler(event){
+		var ans = confirm('Apakah anda yakin?');
+		if(!ans) return;
+
 		disableEditBtn();
 
 		var uuid = $('#uuid_edit').val();
@@ -268,5 +272,32 @@ $(document).ready(function(){
 
 	function disableEditBtn(){
 		$('#btnSubmitEdit').attr({disabled: true});
+	}
+
+	async function btnDeleteLogHandler(event){
+		var ans = confirm('Apakah anda yakin?');
+		if(!ans) return;
+
+		var uuid = $(this).data('uuid');
+
+		var data = {};
+
+		var delUrl = window.Laravel.idepReport.deleteLogURL +'/'+ uuid;
+		await axios.post(delUrl, data)
+			.then(function(resp){
+				showNotification('success', 'Data berhasil dihapus.', 'Sukses');
+				renderReportTable();
+
+				$('#formAddData').removeClass('hidden');
+				$('#formEditData').addClass('hidden');
+				namaLengkapInput.focus();
+
+				$('html, body').animate({
+					scrollTop: $("#formAddData").offset().top
+				}, 500);
+			})
+			.catch(function(err){
+				showNotification('danger', 'Data gagal dihapus.', 'Ada error');
+			});
 	}
 });
