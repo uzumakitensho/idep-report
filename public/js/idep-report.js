@@ -145,5 +145,54 @@ $(document).ready(function(){
 		idepReportTable.destroy();
 
 		var idepReportTable = renderPlace.DataTable();
+
+		rebind();
+	}
+
+	function rebind(){
+		$('.btn-edit-log').off('click', btnEditLogHandler).on('click', btnEditLogHandler);
+	}
+
+	$('#formAddData').removeClass('hidden');
+	$('#formEditData').addClass('hidden');
+
+	function btnEditLogHandler(event){
+		$('#formAddData').addClass('hidden');
+		$('#formEditData').removeClass('hidden');
+
+		var uuid = $(this).data('uuid');
+		var transdate = $(this).data('transdate');
+		var typename = $(this).data('typename');
+		var fullname = $(this).data('fullname');
+		var quantity = $(this).data('quantity');
+		var description = $(this).data('description');
+
+		$('#uuid_edit').val(uuid);
+		$('#tanggal_edit').val(transdate);
+		$('#tipe_idep_edit').val(typename);
+		$('#nama_lengkap_edit').val(fullname);
+		$('#quantity_edit').val(quantity);
+		$('#catatan_edit').val(description);
+
+		$('html, body').animate({
+			scrollTop: $("#formEditData").offset().top
+		}, 500);
+	}
+
+	$('#btnCancelEdit').off('click', btnCancelEditHandler).on('click', btnCancelEditHandler);
+	function btnCancelEditHandler(event){
+		$('#formAddData').removeClass('hidden');
+		$('#formEditData').addClass('hidden');
+
+		$('#uuid_edit').val('');
+		$('#tanggal_edit').val('');
+		$('#tipe_idep_edit').val('');
+		$('#nama_lengkap_edit').val('');
+		$('#quantity_edit').val('');
+		$('#catatan_edit').val('');
+
+		$('html, body').animate({
+			scrollTop: $("#formAddData").offset().top
+		}, 500);
 	}
 });

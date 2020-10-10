@@ -5,6 +5,7 @@
 		<th>Jenis</th>
 		<th>Nama</th>
 		<th>Jumlah</th>
+		<th>Description</th>
 		<th width="3%">Action</th>
 	</tr>
 </thead>
@@ -15,8 +16,17 @@
 		<td>{% type_name %}</td>
 		<td>{% full_name %}</td>
 		<td>{% quantity %}</td>
+		<td>{% description %}</td>
 		<td>
-			<a href="#" class="btn btn-sm btn-primary">Detail</a>
+			<a  
+				class="btn btn-sm btn-warning btn-edit-log"
+				data-uuid="{% uuid_idep_log %}" 
+				data-transdate="{% trans_date %}" 
+				data-typename="{% type_name %}" 
+				data-fullname="{% full_name %}" 
+				data-quantity="{% value %}" 
+				data-description="{% description %}" 
+			>Edit</a>
 		</td>
 	</tr>
 	{% /idepLogs %}

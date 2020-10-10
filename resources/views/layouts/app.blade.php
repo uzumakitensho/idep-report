@@ -18,6 +18,12 @@
     <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
+    <style type="text/css">
+        .hidden {
+            display: none !important;
+        }
+    </style>
+
     @yield('content-css')
 </head>
 <body>

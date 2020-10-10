@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row justify-content-center">
+		@include('report.parts.form-edit')
 		@include('report.parts.form-add')
 
 		<div class="col-md-12">
@@ -41,6 +42,7 @@
 <script>
 window.Laravel.idepReport = {!! json_encode([
 	'createLogURL' => url('idep-report/create-log'),
+	'editLogURL' => url('idep-report/edit-log'),
 	'listLogURL' => url('idep-report/data-log'),
 ]) !!};
 </script>

@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('idep-report')->group(function() {
     Route::get('/list', 'IdepReportController@showListIdepReport');
     Route::post('/create-log', 'IdepReportController@postCreateForm');
+    Route::post('/edit-log/{uuid}', 'IdepReportController@postEditForm');
 
     Route::get('/data-employee', 'IdepReportController@getDataEmployeeList');
     Route::get('/data-type', 'IdepReportController@getDataIdepTypeList');
