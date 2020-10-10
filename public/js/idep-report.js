@@ -149,6 +149,10 @@ $(document).ready(function(){
 		rebind();
 	}
 
+	$('#idepReportLogInputTable').on('draw.dt', function(){
+		rebind();
+	});
+
 	function rebind(){
 		$('.btn-edit-log').off('click', btnEditLogHandler).on('click', btnEditLogHandler);
 		$('.btn-del-log').off('click', btnDeleteLogHandler).on('click', btnDeleteLogHandler);
